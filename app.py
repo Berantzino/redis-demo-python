@@ -27,17 +27,5 @@ def caching():
         return render_template('scrape_form.html')
 
 
-@app.route('/redis-caching/user', methods=['GET', 'POST'])
-def github_user():
-    if request.method == 'POST':
-        username = request.form['username']
-        user = get_github_profile(username)
-        print("im in post")
-        return render_template('github_profile.html', user=user)
-    else:
-        print("im not in post")
-        return render_template('github_profile.html')
-
-
 if __name__ == '__main__':
     app.run(debug=True)
