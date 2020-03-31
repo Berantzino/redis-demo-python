@@ -6,9 +6,13 @@ import json
 app = Flask(__name__)
 store = TweetStore()
 
+@app.route('/')
+def home():
+    return render_template('base.html')
+
 
 @app.route('/twitter-filter')
-def index():
+def twitter_filter():
     tweets = store.tweets()
     return render_template('index.html', tweets=tweets)
 
