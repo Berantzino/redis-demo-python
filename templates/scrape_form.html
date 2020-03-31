@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5">
+        <div class="col text-center">
+            <h1 class="mb-3 mt-3">
+                Redis Caching
+            </h1>
+            <h4 class="mb-2">
+                <small class="text-muted">
+                    Enter a Github username to scrape their profile
+                </small>
+            </h4>
+        </div>
+    </div>
+    <section>
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="e.g. lass5643" />
+            </div>
+            <button type="submit" class="btn btn-primary">Scrape</button>
+        </form>
+    </section>
+    {% if user_data %}
+        <div class="row my-4">
+              <div class="col">
+                <div class="card">
+                  <div class="card-body">
+                      <ul class="list-group">
+                          <li class="list-group-item">From Cache: {{ user_data['cached'] }}</li>
+                          <li class="list-group-item">ID: {{ user_data['profile']['id'] }}</li>
+                          <li class="list-group-item">Login: {{ user_data['profile']['login'] }}</li>
+                          <li class="list-group-item">Name: {{ user_data['profile']['name'] }}</li>
+                          <li class="list-group-item">Public repos: {{ user_data['profile']['public_repos'] }}</li>
+                          <li class="list-group-item">Repos Url:
+                              <a href="{{ user_data['profile']['html_url'] + '?tab=repositories' }}">
+                                  {{ user_data['profile']['html_url'] + '?tab=repositories' }}
+                              </a>
+                          </li>
+                          <li class="list-group-item">Link to profile:
+                              <a href="{{ user_data['profile']['html_url'] }}">
+                                  {{ user_data['profile']['html_url'] }}
+                              </a>
+                          </li>
+                          <li class="list-group-item">Avatar Url:
+                              <a href="{{ user_data['profile']['avatar_url'] }}">
+                                  {{ user_data['profile']['avatar_url'] }}
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+    {% endif %}
+</div>
+{% endblock %}

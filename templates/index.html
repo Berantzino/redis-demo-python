@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+      <div class="row mb-5">
+        <div class="col text-center">
+          <h1 class="mb-3">
+            Twitter Filter
+          </h1>
+          <h4 class="mb-2">
+            <small class="text-muted">
+                Monitoring COVID19, BTC, USD, CocaCola and realDonaldTrump
+            </small>
+          </h4>
+        </div>
+      </div>
+    <div class="text-center mb-4">
+        <a class="btn btn-primary" href="/twitter-filter" role="button">Refresh</a>
+      </div>
+
+      {% for tweet in tweets %}
+        <div class="row my-4">
+          <div class="col">
+            <div class="card {{ 'positive' if tweet.data.polarity > 0 }} {{ 'negative' if tweet.data.polarity < 0 }}">
+              <div class="card-body">
+                <p class="card-text">
+                  {{ tweet.filtered_text()|safe }}
+                </p>
+                <br />
+                <div class="card-text">
+                  <img alt="{{ tweet.data.username }}" height="48" src="{{ tweet.data.profile_image_url }}" width="48" class="mr-3"/>
+                  {{ tweet.data.name }} (<a href="{{ tweet.user_link() }}" target="_blank">{{ tweet.data.username }}</a>)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}
